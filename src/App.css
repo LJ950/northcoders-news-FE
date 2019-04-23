@@ -1,0 +1,20 @@
+.App {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 2fr;
+  grid-auto-rows: minmax(100px, auto);
+  width: auto;
+  height: auto;
+}
+
+main {
+  grid-column: 1/4;
+  border: solid 1px darkred;
+  background-color: palevioletred;
+}
+
+.sidebar {
+  grid-column: 4/5;
+  grid-row: 2/4;
+  border: solid 1px darkorange;
+  background-color: orange;
+}

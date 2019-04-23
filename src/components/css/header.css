@@ -1,0 +1,6 @@
+header {
+  grid-column: 1/5;
+  border: solid 1px blue;
+  background-color: cornflowerblue;
+  text-align: center;
+}
