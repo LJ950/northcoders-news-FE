@@ -37,7 +37,7 @@ class Articles extends Component {
           return (
             <div key={article.article_id} className="article">
               <span className="title-line">
-                <h4>{article.title}</h4>
+                <h3>{article.title}</h3>
                 <span className="article-votes">Votes: {article.votes}</span>
               </span>
               <p>
