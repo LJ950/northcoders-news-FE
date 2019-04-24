@@ -1,7 +1,16 @@
 import axios from "axios";
 const BASE_URL = "https://lukes-northcoders-news.herokuapp.com/api";
 
-export const fetchArticles = async article_id => {
+export const fetchArticles = async query => {
+  let queryString = "";
+  if (query) {
+    queryString = `?topic=${query}`;
+  }
+  const articles = await axios.get(`${BASE_URL}/articles${queryString}`);
+  return articles;
+};
+
+export const fetchArticleByID = async article_id => {
   const articles = await axios.get(`${BASE_URL}/articles/${article_id}`);
   return articles;
 };

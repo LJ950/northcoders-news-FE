@@ -5,6 +5,14 @@
   height: 100vh;
 }
 
+main {
+  grid-column: 1/5;
+  display: grid;
+  grid-template-columns: inherit;
+  width: inherit;
+  height: inherit;
+}
+
 .Router {
   grid-column: 1/5;
   display: grid;

@@ -1,9 +1,9 @@
-import React from "react";
+import React, { Component } from "react";
 import "./css/article.css";
-import Articles from "./Articles";
-import { fetchArticles, fetchCommentsByArticle } from "../api";
+// import Articles from "./Articles";
+import { fetchArticleByID, fetchCommentsByArticle } from "../api";
 
-class Article extends Articles {
+class Article extends Component {
   state = {
     article: {},
     comments: []
@@ -27,6 +27,7 @@ class Article extends Articles {
         </div>
         <div className="article-comments">
           <h4>Comments ({article.comment_count})</h4>
+          {/* split into component */}
           {comments.map(comment => {
             return (
               <div key={comment.comment_id}>
@@ -42,7 +43,7 @@ class Article extends Articles {
 
   componentDidMount = async () => {
     const article_id = this.props.article_id;
-    const article = await fetchArticles(article_id);
+    const article = await fetchArticleByID(article_id);
     const comments = await fetchCommentsByArticle(article_id);
     this.setState(() => {
       return {

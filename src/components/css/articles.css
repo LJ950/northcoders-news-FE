@@ -5,27 +5,29 @@
   padding: 10px;
 }
 
+a {
+  text-decoration: none;
+}
+
 .articles-box .article {
   border: solid 1px tan;
   margin-bottom: 30px;
+  color: black;
 }
-
-/* .articles-box .title-line {
-} */
 
 .articles-box .title-line > h3 {
   display: inline-block;
   margin: 0;
 }
 
-.articles-box .title-line span {
+/* .articles-box .title-line span {
   float: right;
-}
+} */
 
-.footer-line {
+/* .footer-line {
   width: 100%;
   display: inline-block;
-}
+} */
 
 .footer-line .author {
   float: right;

@@ -5,7 +5,7 @@ import "./App.css";
 import Header from "./components/Header";
 import Navbar from "./components/Navbar";
 import User from "./components/User";
-import Home from "./components/Home";
+import Topics from "./components/Topics";
 import Article from "./components/Article";
 
 class App extends Component {
@@ -16,7 +16,8 @@ class App extends Component {
         <Navbar />
         <User />
         <Router className="Router">
-          <Home className="home" path="/" />
+          {/* <Home className="home" path="/" /> */}
+          <Topics className="home" path="/" />
           <Article path="/article/:article_id" />
         </Router>
       </div>
