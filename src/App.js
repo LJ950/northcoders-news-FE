@@ -1,11 +1,12 @@
 import React, { Component } from "react";
+import { Router } from "@reach/router";
 import "./App.css";
 
 import Header from "./components/Header";
 import Navbar from "./components/Navbar";
-import Articles from "./components/Articles";
 import User from "./components/User";
-import Topics from "./components/Topics";
+import Home from "./components/Home";
+import Article from "./components/Article";
 
 class App extends Component {
   render() {
@@ -13,13 +14,11 @@ class App extends Component {
       <div className="App">
         <Header />
         <Navbar />
-        <main>
-          <Articles />
-        </main>
-        <div className="sidebar">
-          <User />
-          <Topics />
-        </div>
+        <User />
+        <Router className="Router">
+          <Home className="home" path="/" />
+          <Article path="/article/:article_id" />
+        </Router>
       </div>
     );
   }

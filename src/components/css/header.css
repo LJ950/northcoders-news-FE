@@ -1,5 +1,6 @@
 header {
   grid-column: 1/5;
+  grid-row: 1;
   border: solid 1px blue;
   background-color: cornflowerblue;
   text-align: center;

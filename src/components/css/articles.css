@@ -1,4 +1,7 @@
 .articles-box {
+  grid-column: 1/4;
+  border: solid 1px darkred;
+  background-color: palevioletred;
   padding: 10px;
 }
 
@@ -7,8 +10,8 @@
   margin-bottom: 30px;
 }
 
-.articles-box .title-line {
-}
+/* .articles-box .title-line {
+} */
 
 .articles-box .title-line > h3 {
   display: inline-block;

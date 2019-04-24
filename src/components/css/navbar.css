@@ -1,5 +1,6 @@
 .navbar {
-  grid-column: 1/4;
+  grid-column: 1/2;
+  grid-row: 2/3;
   border: solid 1px green;
   background-color: lightgreen;
   text-align: center;

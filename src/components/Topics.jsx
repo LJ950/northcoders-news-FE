@@ -1,22 +1,10 @@
 import React, { Component } from "react";
-// import "./css/topics.css";
+import "./css/topics.css";
+import { fetchTopics } from "../api";
 
 class Topics extends Component {
   state = {
-    topics: [
-      {
-        slug: "coding",
-        description: "Code is love, code is life"
-      },
-      {
-        slug: "football",
-        description: "FOOTIE!"
-      },
-      {
-        slug: "cooking",
-        description: "Hey good looking, what you got cooking?"
-      }
-    ]
+    topics: []
   };
 
   render() {
@@ -35,6 +23,14 @@ class Topics extends Component {
       </div>
     );
   }
+
+  componentDidMount = async () => {
+    const topics = await fetchTopics();
+    console.log(topics);
+    this.setState(() => {
+      return { topics: topics.data.topics };
+    });
+  };
 }
 
 export default Topics;
