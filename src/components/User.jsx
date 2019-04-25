@@ -18,6 +18,7 @@ class User extends Component {
             <input placeholder="username" defaultValue="jessjelly" />
             <button type="submit">Sign In</button>
           </form>
+          <p>Login to comment and vote!</p>
         </div>
       );
     }

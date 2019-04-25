@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import "./css/article.css";
 import Comment from "./Comment";
-import { fetchArticleByID, fetchCommentsByArticle, postComment } from "../api";
+import {
+  fetchArticleByID,
+  fetchCommentsByArticle,
+  postComment,
+  deleteComment
+} from "../api";
 import AddComment from "./AddComment";
 
 class Article extends Component {
@@ -9,10 +14,10 @@ class Article extends Component {
     article: {},
     comments: [],
     addComment: false,
-    newComment: ""
+    newComment: {}
   };
   render() {
-    // console.log(this.props, "article");
+    // console.log(this.state.comments, "article");
     const { article, comments } = this.state;
     return (
       <main>
@@ -33,7 +38,7 @@ class Article extends Component {
           ) : (
             <button
               disabled={!this.props.user.loggedIn}
-              onClick={this.addComment}
+              onClick={this.allowAddComment}
             >
               Add Comment
             </button>
@@ -47,6 +52,8 @@ class Article extends Component {
               <Comment
                 comment={comment}
                 key={comment.comment_id || comment.comment_id + 1}
+                user={this.props.user}
+                deleteComment={this.userDeleteComment}
               />
             );
           })}
@@ -68,9 +75,11 @@ class Article extends Component {
   };
 
   handleChange = event => {
+    // console.log(this.props.user.user.username);
     const newComment = event.target.value;
-    // console.log(newComment, "HC COm");
-    this.setState({ newComment: newComment });
+    this.setState(state => {
+      return { ...state, newComment: newComment };
+    });
   };
 
   handleSubmit = async event => {
@@ -82,19 +91,40 @@ class Article extends Component {
 
     postComment(commentBody, currentUser, articleId)
       .then(submittedComment => {
+        submittedComment.data.comment.votes = 0;
         return this.setState(state => {
           return {
             ...state,
             comments: [submittedComment.data.comment, ...this.state.comments],
             newComment: "",
-            addComment: false
+            addComment: false,
+            articles: state.article.comment_count++
           };
         });
       })
-      .catch(console.log);
+      .catch(err => alert("Error! Comment not posted."));
   };
 
-  addComment = event => {
+  userDeleteComment = event => {
+    const keptComments = this.state.comments.slice(1);
+    console.log(keptComments, "KC");
+    this.setState(state => {
+      return {
+        ...state,
+        comments: [...keptComments],
+        articles: (state.article.comment_count -= 1)
+      };
+    });
+    console.log(this.state);
+    if (this.state.comments[0].comment_id !== undefined) {
+      const commentId = event.target.id;
+      deleteComment(commentId).then(res => {
+        console.log(res, "deleted");
+      });
+    }
+  };
+
+  allowAddComment = event => {
     event.preventDefault();
     this.setState(state => {
       return { ...state, addComment: true };

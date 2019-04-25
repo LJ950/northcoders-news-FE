@@ -19,7 +19,7 @@ class App extends Component {
         <Header />
         {/* <Navbar /> */}
         <User
-          login={this.handleSubmit}
+          login={this.login}
           user={this.state.userInfo}
           logout={this.logout}
         />
@@ -32,10 +32,10 @@ class App extends Component {
   }
 
   logout = () => {
-    this.setState({ userInfo: {} });
+    this.setState({ userInfo: { user: {}, loggedIn: false } });
   };
 
-  handleSubmit = async event => {
+  login = async event => {
     event.preventDefault();
     const username = event.target[0].value;
     fetchUsers(username)
