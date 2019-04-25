@@ -10,9 +10,14 @@ class Topics extends Component {
   };
 
   render() {
+    // console.log(this.props, "Topics");
     return (
       <main>
-        <Articles currentTopic={this.state.currentTopic} />
+        <Articles
+          currentTopic={this.state.currentTopic}
+          user={this.props.user}
+        />
+
         <div className="topics-box">
           <h3>Hot Topics</h3>
           <ul>

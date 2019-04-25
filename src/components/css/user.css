@@ -1,5 +1,7 @@
 .users-box {
   grid-column: 4/5;
+  grid-row: 1;
   border: solid 1px darkorange;
   background-color: orange;
+  text-align: center;
 }

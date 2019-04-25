@@ -26,3 +26,19 @@ export const fetchTopics = async () => {
   const topics = await axios.get(`${BASE_URL}/topics`);
   return topics;
 };
+
+export const fetchUsers = async username => {
+  const user = await axios.get(`${BASE_URL}/users/${username}`);
+  return user;
+};
+
+export const postComment = async (comment, user, article_id) => {
+  const submittedComment = await axios.post(
+    `${BASE_URL}/articles/${article_id}/comments`,
+    {
+      body: comment,
+      username: user
+    }
+  );
+  return submittedComment;
+};

@@ -1,15 +1,18 @@
 import React, { Component } from "react";
 import "./css/article.css";
-// import Articles from "./Articles";
-import { fetchArticleByID, fetchCommentsByArticle } from "../api";
+import Comment from "./Comment";
+import { fetchArticleByID, fetchCommentsByArticle, postComment } from "../api";
+import AddComment from "./AddComment";
 
 class Article extends Component {
   state = {
     article: {},
-    comments: []
+    comments: [],
+    addComment: false,
+    newComment: ""
   };
-
   render() {
+    // console.log(this.props, "article");
     const { article, comments } = this.state;
     return (
       <main>
@@ -17,23 +20,34 @@ class Article extends Component {
           <h2>{article.title}</h2>
           <p>{article.author}</p>
           <p>{article.body}</p>
-          <p>
-            <span>Add Comment</span>
+          <button className="vote-button">Vote Up</button>
+          <span className="article-votes">{article.votes}</span>
+          <button className="vote-button">Vote Down</button>
 
-            <button className="vote-button">Vote Up</button>
-            <span className="article-votes">{article.votes}</span>
-            <button className="vote-button">Vote Down</button>
-          </p>
+          {this.state.addComment ? (
+            <AddComment
+              handleChange={this.handleChange}
+              handleSubmit={this.handleSubmit}
+              user={this.props.user}
+            />
+          ) : (
+            <button
+              disabled={!this.props.user.loggedIn}
+              onClick={this.addComment}
+            >
+              Add Comment
+            </button>
+          )}
         </div>
         <div className="article-comments">
           <h4>Comments ({article.comment_count})</h4>
-          {/* split into component */}
+
           {comments.map(comment => {
             return (
-              <div key={comment.comment_id}>
-                <p>{comment.body}</p>
-                <p>{comment.author}</p>
-              </div>
+              <Comment
+                comment={comment}
+                key={comment.comment_id || comment.comment_id + 1}
+              />
             );
           })}
         </div>
@@ -50,6 +64,40 @@ class Article extends Component {
         article: article.data.article,
         comments: comments.data.comments
       };
+    });
+  };
+
+  handleChange = event => {
+    const newComment = event.target.value;
+    // console.log(newComment, "HC COm");
+    this.setState({ newComment: newComment });
+  };
+
+  handleSubmit = async event => {
+    event.preventDefault();
+    const { user } = this.props;
+    const articleId = this.state.article.article_id;
+    const commentBody = this.state.newComment;
+    const currentUser = user.user.username;
+
+    postComment(commentBody, currentUser, articleId)
+      .then(submittedComment => {
+        return this.setState(state => {
+          return {
+            ...state,
+            comments: [submittedComment.data.comment, ...this.state.comments],
+            newComment: "",
+            addComment: false
+          };
+        });
+      })
+      .catch(console.log);
+  };
+
+  addComment = event => {
+    event.preventDefault();
+    this.setState(state => {
+      return { ...state, addComment: true };
     });
   };
 }

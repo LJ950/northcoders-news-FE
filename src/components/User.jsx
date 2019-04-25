@@ -1,13 +1,27 @@
-import React from "react";
+import React, { Component } from "react";
 import "./css/user.css";
 
-const User = () => {
-  return (
-    <div className="users-box">
-      <button>Sign In/Create Post</button>
-      <button>Sign Up</button>
-    </div>
-  );
-};
+class User extends Component {
+  render() {
+    const { user } = this.props;
+    if (user.loggedIn) {
+      return (
+        <div className="users-box">
+          <h3>Welcome, {user.user.name}!</h3>
+          <button onClick={this.props.logout}>Log Out</button>
+        </div>
+      );
+    } else {
+      return (
+        <div className="users-box">
+          <form onSubmit={this.props.login}>
+            <input placeholder="username" defaultValue="jessjelly" />
+            <button type="submit">Sign In</button>
+          </form>
+        </div>
+      );
+    }
+  }
+}
 
 export default User;

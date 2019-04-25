@@ -4,6 +4,7 @@ import "../api";
 // import { Link } from "@reach/router";
 import { fetchArticles } from "../api";
 import { ArticleCard } from "./ArticleCard";
+// import Navbar from "./components/Navbar";
 
 class Articles extends Component {
   state = {
@@ -12,6 +13,7 @@ class Articles extends Component {
   };
 
   render() {
+    // console.log(this.props, "articles");
     return (
       <div className="articles-box">
         <h2>Latest Articles...</h2>
