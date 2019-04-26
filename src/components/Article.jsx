@@ -8,6 +8,7 @@ import {
   deleteComment
 } from "../api";
 import AddComment from "./AddComment";
+import { formattedDate } from "../utils/utils";
 
 class Article extends Component {
   state = {
@@ -23,7 +24,12 @@ class Article extends Component {
       <main>
         <div className="single-article">
           <h2>{article.title}</h2>
-          <p>{article.author}</p>
+          <p>
+            <span>{article.author}</span>{" "}
+            <span className="article-date">
+              {formattedDate(article.created_at)}
+            </span>
+          </p>
           <p>{article.body}</p>
           <button className="vote-button">Vote Up</button>
           <span className="article-votes">{article.votes}</span>
@@ -107,7 +113,6 @@ class Article extends Component {
 
   userDeleteComment = event => {
     const keptComments = this.state.comments.slice(1);
-    console.log(keptComments, "KC");
     this.setState(state => {
       return {
         ...state,
@@ -115,7 +120,6 @@ class Article extends Component {
         articles: (state.article.comment_count -= 1)
       };
     });
-    console.log(this.state);
     if (this.state.comments[0].comment_id !== undefined) {
       const commentId = event.target.id;
       deleteComment(commentId).then(res => {
