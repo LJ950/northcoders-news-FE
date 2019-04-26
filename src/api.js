@@ -11,30 +11,58 @@ export const fetchArticles = async query => {
     .get(`${BASE_URL}/articles${queryString}`)
     .then()
     .catch(err => {
-      navigate("/error");
+      navigate("/error", {
+        replace: true
+      });
     });
   return articles;
 };
 
-export const fetchArticleByID = async article_id => {
-  const articles = await axios.get(`${BASE_URL}/articles/${article_id}`);
+export const fetchArticleByID = article_id => {
+  const articles = axios
+    .get(`${BASE_URL}/articles/${article_id}`)
+    .then()
+    .catch(err => {
+      navigate("/error", {
+        replace: true
+      });
+    });
   return articles;
 };
 
-export const fetchCommentsByArticle = async article_id => {
-  const comments = await axios.get(
-    `${BASE_URL}/articles/${article_id}/comments`
-  );
+export const fetchCommentsByArticle = article_id => {
+  const comments = axios
+    .get(`${BASE_URL}/articles/${article_id}/comments`)
+    .then()
+    .catch(err => {
+      navigate("/error", {
+        replace: true
+      });
+    });
   return comments;
 };
 
-export const fetchTopics = async () => {
-  const topics = await axios.get(`${BASE_URL}/topics`);
+export const fetchTopics = () => {
+  const topics = axios
+    .get(`${BASE_URL}/topics`)
+    .then()
+    .catch(err => {
+      navigate("/error", {
+        replace: true
+      });
+    });
   return topics;
 };
 
 export const fetchUsers = async username => {
-  const user = await axios.get(`${BASE_URL}/users/${username}`);
+  const user = await axios
+    .get(`${BASE_URL}/users/${username}`)
+    .then()
+    .catch(err => {
+      navigate("/error", {
+        replace: true
+      });
+    });
   return user;
 };
 
@@ -55,7 +83,6 @@ export const deleteComment = async comment_id => {
 };
 
 export const updateVotes = async (id, vote, context) => {
-  // console.log(`${BASE_URL}/${context}/${id}`);
   const article = await axios.patch(`${BASE_URL}/${context}/${id}`, {
     inc_votes: vote
   });

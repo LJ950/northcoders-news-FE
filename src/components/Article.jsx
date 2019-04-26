@@ -10,7 +10,7 @@ import {
 } from "../api";
 import AddComment from "./AddComment";
 import Votes from "./Votes";
-import { formattedDate, disableVote } from "../utils/utils";
+import { formattedDate } from "../utils/utils";
 
 class Article extends Component {
   state = {
@@ -130,10 +130,8 @@ class Article extends Component {
     if (this.state.comments[0].comment_id !== undefined) {
       const commentId = event.target.id;
       deleteComment(commentId)
-        .then(res => {
-          console.log(res, "deleted");
-        })
-        .catch(console.log);
+        .then()
+        .catch(err => alert("Comment could not be deleted"));
     }
   };
 
@@ -164,7 +162,7 @@ class Article extends Component {
     }
     updateVotes(id, vote, context)
       .then()
-      .catch(console.log);
+      .catch(err => alert("Sorry, there was a counting your vote"));
   };
 
   allowAddComment = event => {
