@@ -1,4 +1,5 @@
 import axios from "axios";
+import { navigate } from "@reach/router";
 const BASE_URL = "https://lukes-northcoders-news.herokuapp.com/api";
 
 export const fetchArticles = async query => {
@@ -6,7 +7,12 @@ export const fetchArticles = async query => {
   if (query) {
     queryString = `?topic=${query}`;
   }
-  const articles = await axios.get(`${BASE_URL}/articles${queryString}`);
+  const articles = axios
+    .get(`${BASE_URL}/articles${queryString}`)
+    .then()
+    .catch(err => {
+      navigate("/error");
+    });
   return articles;
 };
 
@@ -46,4 +52,12 @@ export const postComment = async (comment, user, article_id) => {
 export const deleteComment = async comment_id => {
   const response = await axios.delete(`${BASE_URL}/comments/${comment_id}`);
   return response;
+};
+
+export const updateVotes = async (id, vote, context) => {
+  // console.log(`${BASE_URL}/${context}/${id}`);
+  const article = await axios.patch(`${BASE_URL}/${context}/${id}`, {
+    inc_votes: vote
+  });
+  return article;
 };

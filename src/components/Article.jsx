@@ -5,20 +5,22 @@ import {
   fetchArticleByID,
   fetchCommentsByArticle,
   postComment,
-  deleteComment
+  deleteComment,
+  updateVotes
 } from "../api";
 import AddComment from "./AddComment";
-import { formattedDate } from "../utils/utils";
+import Votes from "./Votes";
+import { formattedDate, disableVote } from "../utils/utils";
 
 class Article extends Component {
   state = {
     article: {},
     comments: [],
     addComment: false,
-    newComment: {}
+    newComment: {},
+    voted: false
   };
   render() {
-    // console.log(this.state.comments, "article");
     const { article, comments } = this.state;
     return (
       <main>
@@ -31,9 +33,13 @@ class Article extends Component {
             </span>
           </p>
           <p>{article.body}</p>
-          <button className="vote-button">Vote Up</button>
-          <span className="article-votes">{article.votes}</span>
-          <button className="vote-button">Vote Down</button>
+          <Votes
+            articleOrComment={this.state.article}
+            user={this.props.user}
+            voted={this.state.voted}
+            changeVote={this.changeVote}
+            context="articles"
+          />
 
           {this.state.addComment ? (
             <AddComment
@@ -50,9 +56,9 @@ class Article extends Component {
             </button>
           )}
         </div>
+
         <div className="article-comments">
           <h4>Comments ({article.comment_count})</h4>
-
           {comments.map(comment => {
             return (
               <Comment
@@ -60,6 +66,8 @@ class Article extends Component {
                 key={comment.comment_id || comment.comment_id + 1}
                 user={this.props.user}
                 deleteComment={this.userDeleteComment}
+                voted={this.state.voted}
+                changeVote={this.changeVote}
               />
             );
           })}
@@ -81,7 +89,6 @@ class Article extends Component {
   };
 
   handleChange = event => {
-    // console.log(this.props.user.user.username);
     const newComment = event.target.value;
     this.setState(state => {
       return { ...state, newComment: newComment };
@@ -122,10 +129,42 @@ class Article extends Component {
     });
     if (this.state.comments[0].comment_id !== undefined) {
       const commentId = event.target.id;
-      deleteComment(commentId).then(res => {
-        console.log(res, "deleted");
+      deleteComment(commentId)
+        .then(res => {
+          console.log(res, "deleted");
+        })
+        .catch(console.log);
+    }
+  };
+
+  changeVote = event => {
+    const id = event.target.getAttribute("articleorcommentid");
+    const vote = +event.target.id;
+    const context = event.target.getAttribute("context");
+    if (context === "articles") {
+      this.setState(state => {
+        return {
+          ...state,
+          article: { ...state.article, votes: (state.article.votes += vote) },
+          voted: true
+        };
+      });
+    } else {
+      const updatedComment = this.state.comments.filter(comment => {
+        return comment.comment_id === +id;
+      });
+      updatedComment[0].votes += vote;
+      this.setState(state => {
+        return {
+          ...state,
+          comments: [...state.comments],
+          voted: true
+        };
       });
     }
+    updateVotes(id, vote, context)
+      .then()
+      .catch(console.log);
   };
 
   allowAddComment = event => {

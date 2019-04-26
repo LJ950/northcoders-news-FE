@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import User from "./components/User";
 import Topics from "./components/Topics";
 import Article from "./components/Article";
+import Error from "./components/Error";
 
 class App extends Component {
   state = {
@@ -26,6 +27,7 @@ class App extends Component {
         <Router className="Router">
           <Topics className="home" path="/" />
           <Article path="/article/:article_id" user={this.state.userInfo} />
+          <Error path="/error" default />
         </Router>
       </div>
     );
