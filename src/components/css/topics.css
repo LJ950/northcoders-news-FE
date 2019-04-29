@@ -4,4 +4,22 @@
   height: fit-content;
   border: solid 1px darkcyan;
   background-color: cyan;
+  padding: 15px;
+}
+
+.topics-box ul {
+  padding: 0px;
+}
+
+.topics-box li {
+  list-style: none;
+  padding: 3px;
+  font-size: 1.2em;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  width: auto;
+}
+
+.topics-box li:hover {
+  cursor: pointer;
+  font-weight: bold;
 }

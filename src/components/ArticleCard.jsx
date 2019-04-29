@@ -4,9 +4,6 @@ import { Link } from "@reach/router";
 import { formattedDate } from "../utils/utils";
 
 export const ArticleCard = ({ article }) => {
-  // const articleDate = new Date(article.created_at);
-  // const displayDate = `${articleDate.getDate()}/${articleDate.getMonth()}/${articleDate.getFullYear()}`;
-  // console.log(articleDate);
   return (
     <Link to={`/article/${article.article_id}`} id={article.article_id}>
       <div className="article">

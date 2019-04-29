@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import "./css/articles.css";
 import "../api";
-// import { Link } from "@reach/router";
+import { navigate } from "@reach/router";
 import { fetchArticles } from "../api";
 import { ArticleCard } from "./ArticleCard";
-// import Navbar from "./components/Navbar";
 
 class Articles extends Component {
   state = {
@@ -30,13 +29,20 @@ class Articles extends Component {
     });
   };
 
-  componentDidUpdate = async () => {
+  componentDidUpdate = () => {
     if (this.state.currentTopic !== this.props.currentTopic) {
       const query = this.props.currentTopic;
-      const { data } = await fetchArticles(query);
-      this.setState(() => {
-        return { articles: data.articles, currentTopic: query };
-      });
+      const { data } = fetchArticles(query)
+        .then(
+          this.setState(() => {
+            return { articles: data.articles, currentTopic: query };
+          })
+        )
+        .catch(err => {
+          navigate("/error", {
+            replace: true
+          });
+        });
     }
   };
 }

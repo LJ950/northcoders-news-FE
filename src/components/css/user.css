@@ -5,3 +5,53 @@
   background-color: orange;
   text-align: center;
 }
+
+.users-box form {
+  padding: 10px;
+}
+
+.users-box form input {
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  width: 100px;
+  margin-right: 5px;
+}
+
+.users-box form button {
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  width: 70px;
+  margin-right: 5px;
+  background-color: lightgray;
+  border: lightgray solid 1px;
+}
+
+.users-box form button:hover {
+  background-color: lightgrey;
+  cursor: pointer;
+  border: darkgrey solid 1px;
+}
+
+.users-box form button:active {
+  background-color: rgb(100, 100, 100);
+  cursor: pointer;
+  border: darkgrey solid 1px;
+  box-shadow: 2px;
+}
+
+.invalid-user {
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0px;
+  color: red;
+}
+
+.login-message {
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0px;
+}

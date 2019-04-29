@@ -1,7 +1,9 @@
 import React, { Component } from "react";
+import { navigate } from "@reach/router";
 import "./css/topics.css";
 import { fetchTopics } from "../api";
 import Articles from "./Articles";
+// import Search from "./Search";
 
 class Topics extends Component {
   state = {
@@ -10,7 +12,6 @@ class Topics extends Component {
   };
 
   render() {
-    // console.log(this.props, "Topics");
     return (
       <main>
         <Articles
@@ -19,6 +20,7 @@ class Topics extends Component {
         />
 
         <div className="topics-box">
+          {/* <Search /> */}
           <h3>Hot Topics</h3>
           <ul>
             {this.state.topics.map(topic => {
@@ -39,11 +41,18 @@ class Topics extends Component {
     );
   }
 
-  componentDidMount = async () => {
-    const topics = await fetchTopics();
-    this.setState(() => {
-      return { topics: topics.data.topics };
-    });
+  componentDidMount = () => {
+    fetchTopics()
+      .then(topics =>
+        this.setState(() => {
+          return { topics: topics.data.topics };
+        })
+      )
+      .catch(err => {
+        navigate("/error", {
+          replace: true
+        });
+      });
   };
 
   setTopic = event => {

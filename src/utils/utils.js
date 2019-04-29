@@ -4,9 +4,11 @@ export const formattedDate = date => {
   return displayDate;
 };
 
-export const disableVote = (loggedIn, voted) => {
-  // if (loggedIn && !voted) return false;
-  // else return true;
-  if (loggedIn) return false;
+export const disableVote = (user, voted, author) => {
+  if (!voted && user.username && user.username !== author) return false;
   else return true;
+};
+
+export const author = (user, author) => {
+  if (user === author) return true;
 };

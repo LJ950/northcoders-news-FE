@@ -1,12 +1,11 @@
 import React, { Component } from "react";
+import { navigate } from "@reach/router";
 import "./css/article.css";
 import Comment from "./Comment";
 import {
   fetchArticleByID,
   fetchCommentsByArticle,
-  postComment,
-  deleteComment,
-  updateVotes
+  deleteComment
 } from "../api";
 import AddComment from "./AddComment";
 import Votes from "./Votes";
@@ -16,9 +15,7 @@ class Article extends Component {
   state = {
     article: {},
     comments: [],
-    addComment: false,
-    newComment: {},
-    voted: false
+    addComment: false
   };
   render() {
     const { article, comments } = this.state;
@@ -34,11 +31,10 @@ class Article extends Component {
           </p>
           <p>{article.body}</p>
           <Votes
-            articleOrComment={this.state.article}
+            votes={this.state.article.votes}
             user={this.props.user}
-            voted={this.state.voted}
-            changeVote={this.changeVote}
-            context="articles"
+            article={this.state.article}
+            updateArticleVotes={this.updateArticleVotes}
           />
 
           {this.state.addComment ? (
@@ -46,10 +42,12 @@ class Article extends Component {
               handleChange={this.handleChange}
               handleSubmit={this.handleSubmit}
               user={this.props.user}
+              updateStateComment={this.updateStateComment}
+              articleId={this.state.article.article_id}
             />
           ) : (
             <button
-              disabled={!this.props.user.loggedIn}
+              disabled={!this.props.user.username}
               onClick={this.allowAddComment}
             >
               Add Comment
@@ -59,11 +57,11 @@ class Article extends Component {
 
         <div className="article-comments">
           <h4>Comments ({article.comment_count})</h4>
-          {comments.map(comment => {
+          {comments.map((comment, index) => {
             return (
               <Comment
                 comment={comment}
-                key={comment.comment_id || comment.comment_id + 1}
+                key={comment.comment_id || index}
                 user={this.props.user}
                 deleteComment={this.userDeleteComment}
                 voted={this.state.voted}
@@ -76,100 +74,58 @@ class Article extends Component {
     );
   }
 
-  componentDidMount = async () => {
+  componentDidMount = () => {
     const article_id = this.props.article_id;
-    const article = await fetchArticleByID(article_id);
-    const comments = await fetchCommentsByArticle(article_id);
-    this.setState(() => {
+    fetchArticleByID(article_id)
+      .then(article => this.setState({ article: article.data.article }))
+      .catch(err => {
+        navigate("/error", {
+          replace: true
+        });
+      });
+    fetchCommentsByArticle(article_id)
+      .then(comments => this.setState({ comments: comments.data.comments }))
+      .catch(err => {
+        navigate("/error", {
+          replace: true
+        });
+      });
+  };
+
+  updateStateComment = submittedComment => {
+    submittedComment.data.comment.votes = 0;
+    this.setState(state => {
       return {
-        article: article.data.article,
-        comments: comments.data.comments
+        comments: [submittedComment.data.comment, ...this.state.comments],
+        addComment: false,
+        articles: state.article.comment_count++
       };
     });
   };
 
-  handleChange = event => {
-    const newComment = event.target.value;
-    this.setState(state => {
-      return { ...state, newComment: newComment };
-    });
-  };
-
-  handleSubmit = async event => {
-    event.preventDefault();
-    const { user } = this.props;
-    const articleId = this.state.article.article_id;
-    const commentBody = this.state.newComment;
-    const currentUser = user.user.username;
-
-    postComment(commentBody, currentUser, articleId)
-      .then(submittedComment => {
-        submittedComment.data.comment.votes = 0;
-        return this.setState(state => {
-          return {
-            ...state,
-            comments: [submittedComment.data.comment, ...this.state.comments],
-            newComment: "",
-            addComment: false,
-            articles: state.article.comment_count++
-          };
-        });
-      })
-      .catch(err => alert("Error! Comment not posted."));
-  };
-
   userDeleteComment = event => {
+    const commentId = event.target.id || this.state.comments[0].comment_id;
     const keptComments = this.state.comments.slice(1);
     this.setState(state => {
       return {
-        ...state,
         comments: [...keptComments],
         articles: (state.article.comment_count -= 1)
       };
     });
     if (this.state.comments[0].comment_id !== undefined) {
-      const commentId = event.target.id;
       deleteComment(commentId)
         .then()
         .catch(err => alert("Comment could not be deleted"));
     }
   };
 
-  changeVote = event => {
-    const id = event.target.getAttribute("articleorcommentid");
-    const vote = +event.target.id;
-    const context = event.target.getAttribute("context");
-    if (context === "articles") {
-      this.setState(state => {
-        return {
-          ...state,
-          article: { ...state.article, votes: (state.article.votes += vote) },
-          voted: true
-        };
-      });
-    } else {
-      const updatedComment = this.state.comments.filter(comment => {
-        return comment.comment_id === +id;
-      });
-      updatedComment[0].votes += vote;
-      this.setState(state => {
-        return {
-          ...state,
-          comments: [...state.comments],
-          voted: true
-        };
-      });
-    }
-    updateVotes(id, vote, context)
-      .then()
-      .catch(err => alert("Sorry, there was a counting your vote"));
+  updateArticleVotes = (article, vote) => {
+    this.setState({ article: { ...article, votes: (article.votes += vote) } });
   };
 
   allowAddComment = event => {
     event.preventDefault();
-    this.setState(state => {
-      return { ...state, addComment: true };
-    });
+    this.setState({ addComment: true });
   };
 }
 export default Article;
