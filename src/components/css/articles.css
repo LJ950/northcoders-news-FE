@@ -33,3 +33,8 @@ a {
 .footer-line .author {
   float: right;
 }
+
+.sort-menu {
+  text-align: right;
+  padding-bottom: 10px;
+}

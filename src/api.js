@@ -1,5 +1,4 @@
 import axios from "axios";
-import { navigate } from "@reach/router";
 const BASE_URL = "https://lukes-northcoders-news.herokuapp.com/api";
 
 export const fetchArticles = async query => {

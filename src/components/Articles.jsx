@@ -15,6 +15,20 @@ class Articles extends Component {
     return (
       <div className="articles-box">
         <h2>Latest Articles...</h2>
+        <div className="sort-menu">
+          <select>
+            <option defaultValue>date created</option>
+            <option id="comments">comments</option>
+            <option id="votes">votes</option>
+          </select>
+          <select>
+            <option id="asc" defaultValue>
+              ascending
+            </option>
+            <option id="desc">descending</option>
+          </select>
+        </div>
+
         {this.state.articles.map(article => {
           return <ArticleCard article={article} key={article.article_id} />;
         })}
@@ -32,8 +46,8 @@ class Articles extends Component {
   componentDidUpdate = () => {
     if (this.state.currentTopic !== this.props.currentTopic) {
       const query = this.props.currentTopic;
-      const { data } = fetchArticles(query)
-        .then(
+      fetchArticles(query)
+        .then(({ data }) =>
           this.setState(() => {
             return { articles: data.articles, currentTopic: query };
           })
