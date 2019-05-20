@@ -64,6 +64,7 @@ class Article extends Component {
                 key={comment.comment_id || index}
                 user={this.props.user}
                 deleteComment={this.userDeleteComment}
+                editComment={this.userEditComment}
                 voted={this.state.voted}
                 changeVote={this.changeVote}
               />
@@ -117,6 +118,11 @@ class Article extends Component {
         .then()
         .catch(err => alert("Comment could not be deleted"));
     }
+  };
+
+  userEditComment = event => {
+    // code to edit comment
+    console.log(event.target.id);
   };
 
   updateArticleVotes = (article, vote) => {

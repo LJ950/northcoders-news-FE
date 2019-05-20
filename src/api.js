@@ -1,11 +1,10 @@
 import axios from "axios";
 const BASE_URL = "https://lukes-northcoders-news.herokuapp.com/api";
 
-export const fetchArticles = async query => {
+export const fetchArticles = async (topic, sort, order) => {
   let queryString = "";
-  if (query) {
-    queryString = `?topic=${query}`;
-  }
+  if (topic) queryString = `?topic=${topic}&sort_by=${sort}&order=${order}`;
+  if (!topic && sort) queryString = `?sort_by=${sort}&order=${order}`;
   const articles = await axios.get(`${BASE_URL}/articles${queryString}`);
   return articles;
 };
@@ -41,6 +40,13 @@ export const postComment = async (comment, user, article_id) => {
     }
   );
   return submittedComment;
+};
+
+export const editComment = async (comment_id, editedComment) => {
+  const response = await axios.patch(`${BASE_URL}/comments/${comment_id}`, {
+    body: editedComment
+  });
+  return response;
 };
 
 export const deleteComment = async comment_id => {

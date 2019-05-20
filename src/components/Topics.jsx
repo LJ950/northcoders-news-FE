@@ -3,15 +3,20 @@ import { navigate } from "@reach/router";
 import "./css/topics.css";
 import { fetchTopics } from "../api";
 import Articles from "./Articles";
-// import Search from "./Search";
+import Search from "./Search";
 
 class Topics extends Component {
   state = {
     topics: [],
-    currentTopic: ""
+    currentTopic: "",
+    searchTopics: []
   };
 
   render() {
+    const displayTopics =
+      this.state.searchTopics.length === 0
+        ? this.state.topics
+        : this.state.searchTopics;
     return (
       <main>
         <Articles
@@ -20,10 +25,13 @@ class Topics extends Component {
         />
 
         <div className="topics-box">
-          {/* <Search /> */}
-          <h3>Hot Topics</h3>
+          <h3>Filter by Topic</h3>
+          <Search handleSearch={this.handleSearch} />
+          <button onClick={this.setTopic} id="">
+            Reset Filters
+          </button>
           <ul>
-            {this.state.topics.map(topic => {
+            {displayTopics.map(topic => {
               return (
                 <li
                   className="topic"
@@ -57,9 +65,14 @@ class Topics extends Component {
 
   setTopic = event => {
     const topic = event.target.id;
-    this.setState(state => {
-      return { ...state, currentTopic: topic };
+    this.setState({ currentTopic: topic });
+  };
+
+  handleSearch = event => {
+    const foundTopics = this.state.topics.filter(topic => {
+      return topic.slug.includes(event.target.value);
     });
+    this.setState({ searchTopics: foundTopics });
   };
 }
 

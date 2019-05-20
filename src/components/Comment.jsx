@@ -17,25 +17,33 @@ class Comment extends Component {
           updateCommentVotes={this.updateCommentVotes}
         />
 
-        <p>
-          {author(this.props.user.username, this.props.comment.author) ? (
+        {author(this.props.user.username, this.props.comment.author) ? (
+          <div>
             <button
               onClick={this.props.deleteComment}
               id={this.props.comment.comment_id}
-              disabled={!this.props.comment.comment_id}
             >
-              delete comment
+              delete
             </button>
-          ) : (
-            this.props.comment.author
-          )}
-        </p>
+            <button
+              onClick={this.props.editComment}
+              id={this.props.comment.comment_id}
+            >
+              edit
+            </button>
+          </div>
+        ) : (
+          this.props.comment.author
+        )}
       </div>
     );
   }
 
   updateCommentVotes = (comment, vote) => {
-    this.setState({ comment: { ...comment, votes: (comment.votes += vote) } });
+    this.setState(
+      { comment: { ...comment, votes: (comment.votes += vote) } },
+      () => {}
+    );
   };
 }
 

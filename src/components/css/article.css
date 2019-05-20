@@ -15,3 +15,12 @@
   margin-left: 10px;
   margin-right: 10px;
 }
+
+#comment {
+  height: 100px;
+  width: 98%;
+}
+
+.article-comments {
+  padding: 10px;
+}

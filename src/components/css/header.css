@@ -4,4 +4,9 @@ header {
   border: solid 1px blue;
   background-color: cornflowerblue;
   text-align: center;
+  height: 5em;
+}
+
+a {
+  color: black;
 }
