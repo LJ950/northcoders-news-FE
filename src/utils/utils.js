@@ -12,3 +12,9 @@ export const disableVote = (user, voted, author) => {
 export const author = (user, author) => {
   if (user === author) return true;
 };
+
+export const disabledBtnTT = (user, voted, author) => {
+  if (disableVote(user, voted, author) && user.username === author) {
+    return false;
+  } else return true;
+};

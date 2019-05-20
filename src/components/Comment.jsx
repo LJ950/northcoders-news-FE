@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Votes from "./Votes";
 import { author } from "../utils/utils";
-import "./css/comment.css";
 
 class Comment extends Component {
   state = {
@@ -27,12 +26,6 @@ class Comment extends Component {
             >
               delete
             </button>
-            {/* <button
-              onClick={this.props.editComment}
-              id={this.props.comment.comment_id}
-            >
-              edit
-            </button> */}
           </div>
         ) : (
           this.props.comment.author

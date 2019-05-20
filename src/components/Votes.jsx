@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { disableVote } from "../utils/utils";
+import { disableVote, disabledBtnTT } from "../utils/utils";
 import { updateVotes } from "../api";
+import ReactTooltip from "react-tooltip";
 
 class Votes extends Component {
   state = {
@@ -10,7 +11,16 @@ class Votes extends Component {
   render() {
     const author = this.props.comment ? this.props.comment.author : null;
     return (
-      <div>
+      <div
+        data-tip="you can't vote on your own comments"
+        data-tip-disable={disabledBtnTT(
+          this.props.user,
+          this.state.voted,
+          author
+        )}
+      >
+        <ReactTooltip />
+        {/* <p>{disabledBtnTT(this.props.user, this.state.voted, author)}</p> */}
         <button
           disabled={disableVote(this.props.user, this.state.voted, author)}
           className="vote-button"

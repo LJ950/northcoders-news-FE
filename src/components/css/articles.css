@@ -3,7 +3,7 @@
   padding: 10px;
   overflow: scroll;
   direction: rtl;
-  background-color: #fff4d1;
+  background-color: #ffedae;
   border: #505d32 2px solid;
   border-radius: 5px;
   font-family: "Noto Sans", sans-serif;
@@ -19,7 +19,7 @@ a {
 }
 
 .articles-box .article {
-  background-color: #d7dee2;
+  background-color: #fbfef4;
   border: solid 1px #505d32;
   padding: 5px;
   border-radius: 5px;

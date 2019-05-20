@@ -24,7 +24,7 @@ class App extends Component {
           logout={this.logout}
           validUser={this.state.validUser}
         />
-        <Router className="Router">
+        <Router className="Router" primary={false}>
           <Topics className="home" path="/" />
           <Article path="/article/:article_id" user={this.state.user} />
           <Error path="/error" default />
