@@ -10,6 +10,7 @@ import {
 import AddComment from "./AddComment";
 import Votes from "./Votes";
 import { formattedDate } from "../utils/utils";
+import { Link } from "@reach/router";
 
 class Article extends Component {
   state = {
@@ -22,6 +23,9 @@ class Article extends Component {
     return (
       <main>
         <div className="single-article">
+          <Link to="/" className="home-link">
+            Home
+          </Link>
           <h2>{article.title}</h2>
           <p>
             <span>{article.author}</span>{" "}
@@ -36,7 +40,6 @@ class Article extends Component {
             article={this.state.article}
             updateArticleVotes={this.updateArticleVotes}
           />
-
           {this.state.addComment ? (
             <AddComment
               handleChange={this.handleChange}
@@ -49,6 +52,7 @@ class Article extends Component {
             <button
               disabled={!this.props.user.username}
               onClick={this.allowAddComment}
+              className="add-comment-btn"
             >
               Add Comment
             </button>
@@ -81,14 +85,24 @@ class Article extends Component {
       .then(article => this.setState({ article: article.data.article }))
       .catch(err => {
         navigate("/error", {
-          replace: true
+          replace: true,
+          state: {
+            code: err.code,
+            message: err.message,
+            from: `/articles/${article_id}`
+          }
         });
       });
     fetchCommentsByArticle(article_id)
       .then(comments => this.setState({ comments: comments.data.comments }))
       .catch(err => {
         navigate("/error", {
-          replace: true
+          replace: true,
+          state: {
+            code: err.code,
+            message: err.message,
+            from: `/articles/${article_id}/comments`
+          }
         });
       });
   };
@@ -116,14 +130,23 @@ class Article extends Component {
     if (this.state.comments[0].comment_id !== undefined) {
       deleteComment(commentId)
         .then()
-        .catch(err => alert("Comment could not be deleted"));
+        .catch(err => {
+          navigate("/error", {
+            replace: true,
+            state: {
+              code: err.code,
+              message: err.message,
+              from: `/comments/${commentId}`
+            }
+          });
+        });
     }
   };
 
-  userEditComment = event => {
-    // code to edit comment
-    console.log(event.target.id);
-  };
+  // userEditComment = event => {
+  //   // code to edit comment
+  //   console.log(event.target.id);
+  // };
 
   updateArticleVotes = (article, vote) => {
     this.setState({ article: { ...article, votes: (article.votes += vote) } });

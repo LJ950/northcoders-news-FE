@@ -18,7 +18,9 @@ class Votes extends Component {
             this.changeVote(1, this.props.article, this.props.comment);
           }}
         >
-          Vote Up
+          <span role="img" aria-label="up">
+            👆
+          </span>
         </button>
         <span className="article-votes">{this.props.votes}</span>
         <button
@@ -28,7 +30,9 @@ class Votes extends Component {
             this.changeVote(-1, this.props.article, this.props.comment);
           }}
         >
-          Vote Down
+          <span role="img" aria-label="down">
+            👇
+          </span>
         </button>
       </div>
     );

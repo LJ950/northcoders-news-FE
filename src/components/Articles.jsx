@@ -66,7 +66,12 @@ class Articles extends Component {
         )
         .catch(err => {
           navigate("/error", {
-            replace: true
+            replace: true,
+            state: {
+              code: err.code,
+              message: err.message,
+              from: "/articles"
+            }
           });
         });
     }
@@ -94,7 +99,12 @@ class Articles extends Component {
       )
       .catch(err => {
         navigate("/error", {
-          replace: true
+          replace: true,
+          state: {
+            code: err.code,
+            message: err.message,
+            from: `/articles`
+          }
         });
       });
   };

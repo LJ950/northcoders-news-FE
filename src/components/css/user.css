@@ -1,10 +1,19 @@
 .users-box {
   grid-column: 4/5;
   grid-row: 1;
-  border: solid 1px darkorange;
-  background-color: orange;
   text-align: center;
-  height: 5em;
+  height: 6em;
+  font-family: "Noto Sans", sans-serif;
+  background-color: #eaeef4;
+  /* border: #c1cce0 2px solid; */
+  border-radius: 5px;
+  margin: 5px;
+  padding: 5px 0px 0px 0px;
+}
+
+.users-box h3 {
+  margin-bottom: 10px;
+  margin-top: 15px;
 }
 
 .users-box form {
@@ -12,25 +21,32 @@
 }
 
 .users-box form input {
-  padding: 5px;
+  padding: 8px;
   border: none;
   border-radius: 5px;
-  font-size: 14px;
+  font-size: 16px;
   width: 100px;
   margin-right: 5px;
 }
 
 .users-box form button {
-  padding: 5px;
+  padding: 8px;
   border: none;
   border-radius: 5px;
-  font-size: 14px;
+  font-size: 16px;
   width: 70px;
   margin-right: 5px;
-  background-color: lightgray;
-  border: lightgray solid 1px;
 }
 
+.users-box button {
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 80px;
+  margin-right: 5px;
+}
+/*
 .users-box form button:hover {
   background-color: lightgrey;
   cursor: pointer;
@@ -42,17 +58,18 @@
   cursor: pointer;
   border: darkgrey solid 1px;
   box-shadow: 2px;
-}
+} */
 
 .invalid-user {
   font-size: 20px;
-  font-family: Arial, Helvetica, sans-serif;
+  /* font-family: "Noto Sans", sans-serif; */
   margin: 0px;
   color: red;
 }
 
 .login-message {
   font-size: 18px;
-  font-family: Arial, Helvetica, sans-serif;
+  /* font-family: "Noto Sans", sans-serif; */
+  font-style: italic;
   margin: 0px;
 }

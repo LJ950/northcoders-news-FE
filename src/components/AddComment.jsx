@@ -11,7 +11,9 @@ class AddComment extends Component {
       <div>
         <form onSubmit={this.handleSubmit}>
           <textarea onChange={this.handleChange} id="comment" />
-          <button type="submit">Submit Comment</button>
+          <button className="add-comment-btn" type="submit">
+            Submit Comment
+          </button>
         </form>
       </div>
     );

@@ -1,5 +1,6 @@
 import React from "react";
 import "./css/user.css";
+import Button from "react-bootstrap/Button";
 
 const User = ({ user, login, logout, validUser }) => {
   if (user.username) {
@@ -14,7 +15,7 @@ const User = ({ user, login, logout, validUser }) => {
       <div className="users-box">
         <form onSubmit={login}>
           <input placeholder="username" defaultValue="jessjelly" />
-          <button type="submit">Sign In</button>
+          <Button type="submit">Sign In</Button>
         </form>
         {validUser ? (
           <p className="login-message">Login to comment and vote!</p>

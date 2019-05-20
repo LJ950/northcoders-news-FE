@@ -10,6 +10,8 @@ body {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 2fr;
   width: 100%;
+  color: #19231a;
+  background-color: #d7dee2;
   /* height: 100%; */
 }
 
@@ -27,5 +29,42 @@ main {
   width: inherit;
   height: 100%;
   /* border: solid 1px black; */
-  background-color: darkgray;
+  /* background-color: darkgray; */
+}
+
+button {
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4566a2;
+  color: #d7dee2;
+  /* border: #1c448e solid 1px; */
+}
+
+button:hover {
+  background-color: #ffe381;
+  color: #173875;
+  cursor: pointer;
+  /* border: darkgrey solid 1px; */
+}
+
+button:active {
+  background-color: #e3967a;
+  cursor: pointer;
+  /* border: darkgrey solid 1px; */
+  box-shadow: 2px;
+}
+
+button:focus {
+  outline: none;
+}
+
+.vote-button {
+  float: right;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.vote-button:active {
+  background-color: #4566a2;
 }

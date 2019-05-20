@@ -1,26 +1,105 @@
 .single-article {
   grid-column: 1/4;
-  border: solid 1px darkred;
-  background-color: palevioletred;
+  background-color: #fff4d1;
+  border: #505d32 2px solid;
+  border-radius: 5px;
+  font-family: "Noto Sans", sans-serif;
+  margin: 5px;
   padding: 10px;
+  height: fit-content;
+}
+
+.home-link {
+  padding: 5px 10px 5px 10px;
+  color: #fffcf3;
+  background-color: #788b4a;
+  border-radius: 5px;
+}
+
+.home-link:hover {
+  background-color: #e8feb2;
+  color: inherit;
+  border: #788b4a solid 1px;
+}
+
+.add-comment-btn {
+  padding: 6px 10px 6px 10px;
+  border: solid 1px #d7dee2;
+  border-radius: 5px;
+  font-size: 1em;
+  width: auto;
+  margin-right: 5px;
+  /* background-color: #d7dee2; */
+  /* color: #19231a; */
+}
+
+.add-comment-btn:hover {
+  background-color: #eaeef4;
+}
+.add-comment-btn:disabled:hover {
+  background-color: #d7dee2;
+  border: #4566a2 1px solid;
+}
+
+.add-comment-btn:active {
+  background-color: #e3967a;
+}
+
+button:disabled,
+button[disabled] {
+  border: 1px solid #999999;
+  background-color: #d7dee2;
+  color: #666666;
+  cursor: not-allowed;
 }
 
 .article-votes {
   float: right;
-  font-size: 20px;
+  font-size: 22px;
 }
 
-.vote-button {
-  float: right;
-  margin-left: 10px;
-  margin-right: 10px;
+.single-article .vote-button {
+  font-size: 20px;
 }
 
 #comment {
   height: 100px;
   width: 98%;
+  outline: none;
+  border-radius: 5px;
+  padding: 5px;
+  margin-top: 10px;
 }
 
 .article-comments {
+  background-color: #e4fea7;
+  border: #505d32 2px solid;
+  border-radius: 5px;
+  font-family: "Noto Sans", sans-serif;
+  margin: 5px;
   padding: 10px;
+  height: 100vh;
+  overflow: scroll;
+}
+
+.article-comments h4 {
+  margin-bottom: 10px;
+}
+
+.article-comments .single-comment {
+  border-bottom: solid 1px black;
+  padding-bottom: 20px;
+}
+
+.article-comments .single-comment button {
+  padding: 6px 10px 6px 10px;
+  border: solid 1px #d7dee2;
+  border-radius: 5px;
+  font-size: 1em;
+  width: auto;
+  margin-right: 5px;
+}
+
+.delete-btn:hover {
+  background-color: #eaeef4;
 }

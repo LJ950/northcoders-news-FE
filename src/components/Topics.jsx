@@ -25,8 +25,8 @@ class Topics extends Component {
         />
 
         <div className="topics-box">
-          <h3>Filter by Topic</h3>
           <Search handleSearch={this.handleSearch} />
+          <h3>Filter articles by topic</h3>
           <button onClick={this.setTopic} id="">
             Reset Filters
           </button>
@@ -58,7 +58,12 @@ class Topics extends Component {
       )
       .catch(err => {
         navigate("/error", {
-          replace: true
+          replace: true,
+          state: {
+            code: err.code,
+            message: err.message,
+            from: `/topics`
+          }
         });
       });
   };

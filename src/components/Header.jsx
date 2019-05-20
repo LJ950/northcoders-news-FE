@@ -6,7 +6,7 @@ const Header = () => {
   return (
     <header>
       <Link to="/">
-        <h1>NC News</h1>
+        <h1>n.c. news</h1>
       </Link>
     </header>
   );

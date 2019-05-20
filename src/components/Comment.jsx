@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Votes from "./Votes";
 import { author } from "../utils/utils";
+import "./css/comment.css";
 
 class Comment extends Component {
   state = {
@@ -8,7 +9,7 @@ class Comment extends Component {
   };
   render() {
     return (
-      <div key={this.props.comment.comment_id}>
+      <div key={this.props.comment.comment_id} className="single-comment">
         <p>{this.props.comment.body}</p>
         <Votes
           votes={this.state.comment.votes}
@@ -20,17 +21,18 @@ class Comment extends Component {
         {author(this.props.user.username, this.props.comment.author) ? (
           <div>
             <button
+              className="delete-btn"
               onClick={this.props.deleteComment}
               id={this.props.comment.comment_id}
             >
               delete
             </button>
-            <button
+            {/* <button
               onClick={this.props.editComment}
               id={this.props.comment.comment_id}
             >
               edit
-            </button>
+            </button> */}
           </div>
         ) : (
           this.props.comment.author

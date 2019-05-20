@@ -2,13 +2,41 @@
   grid-column: 4/5;
   grid-row: 1;
   height: fit-content;
-  border: solid 1px darkcyan;
-  background-color: cyan;
-  padding: 15px;
+  background-color: #e4fea7;
+  border: #505d32 2px solid;
+  border-radius: 5px;
+  padding: 10px;
+  font-family: "Noto Sans", sans-serif;
+  margin: 5px;
+}
+
+.topics-box h3 {
+  margin-bottom: 5px;
+}
+.topics-box button {
+  padding: 6px 10px 6px 10px;
+  border: solid 1px #505d32;
+  border-radius: 5px;
+  font-size: 1em;
+  width: auto;
+  margin-right: 5px;
+  background-color: #d7dee2;
+  color: #19231a;
+}
+
+.topics-box button:hover {
+  background-color: #19231a;
+  color: #d7dee2;
+}
+
+.topics-box button:active {
+  background-color: #ffe381;
+  color: #19231a;
 }
 
 .topics-box ul {
   padding: 0px;
+  margin-top: 5px;
 }
 
 .topics-box li {

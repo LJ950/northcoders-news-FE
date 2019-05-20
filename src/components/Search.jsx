@@ -3,10 +3,10 @@ import "./css/search.css";
 
 const Search = props => {
   return (
-    <nav className="navbar">
-      <h4>Search Topics</h4>
+    <div className="search-box">
+      <h3>Search Topics</h3>
       <input placeholder="search topics..." onChange={props.handleSearch} />
-    </nav>
+    </div>
   );
 };
 
