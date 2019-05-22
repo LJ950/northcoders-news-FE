@@ -4,16 +4,23 @@ import "../api";
 import { navigate } from "@reach/router";
 import { fetchArticles } from "../api";
 import { ArticleCard } from "./ArticleCard";
+import Search from "./Search";
 
 class Articles extends Component {
   state = {
     articles: [],
+    searchedArticles: [],
+    articleSearchTerm: "",
     currentTopic: "",
     sort: "",
     order: ""
   };
 
   render() {
+    const displayArticles =
+      this.state.articleSearchTerm.length === 0
+        ? this.state.articles
+        : this.state.searchedArticles;
     return (
       <div className="articles-box">
         <div className="content">
@@ -22,7 +29,12 @@ class Articles extends Component {
               ? `Articles on ${this.state.currentTopic}...`
               : "Latest Articles..."}
           </h2>
+
           <div className="sort-menu">
+            <Search
+              handleSearch={this.handleArticleSearch}
+              placeholder="search titles..."
+            />
             <select onChange={this.sortBy}>
               <option value="created_at" defaultValue>
                 date published
@@ -39,7 +51,7 @@ class Articles extends Component {
             </select>
           </div>
 
-          {this.state.articles.map(article => {
+          {displayArticles.map(article => {
             return <ArticleCard article={article} key={article.article_id} />;
           })}
         </div>
@@ -61,7 +73,11 @@ class Articles extends Component {
       fetchArticles(topic, sort)
         .then(({ data }) =>
           this.setState(() => {
-            return { articles: data.articles, currentTopic: topic };
+            return {
+              articles: data.articles,
+              currentTopic: topic,
+              articleSearchTerm: ""
+            };
           })
         )
         .catch(err => {
@@ -107,6 +123,17 @@ class Articles extends Component {
           }
         });
       });
+  };
+
+  handleArticleSearch = event => {
+    const searchTerm = event.target.value;
+    const foundArticles = this.state.articles.filter(article => {
+      return article.title.toLowerCase().includes(searchTerm);
+    });
+    this.setState({
+      searchedArticles: foundArticles,
+      articleSearchTerm: searchTerm
+    });
   };
 }
 

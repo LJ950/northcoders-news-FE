@@ -5,11 +5,13 @@
 
 .search-box input {
   padding: 8px;
-  border: none;
+  border: solid 1px #505d32;
   border-radius: 5px;
   font-size: 16px;
   width: auto;
   margin-right: 5px;
+  float: left;
+  margin-bottom: 10px;
 }
 
 input:focus {

@@ -22,6 +22,9 @@
   margin-right: 5px;
   background-color: #d7dee2;
   color: #19231a;
+  height: 36px;
+  display: block;
+  clear: left;
 }
 
 .topics-box button:hover {

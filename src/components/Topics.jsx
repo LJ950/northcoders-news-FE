@@ -7,15 +7,16 @@ import Search from "./Search";
 
 class Topics extends Component {
   state = {
-    topics: [],
+    topicSearchTerm: "",
+    allTopics: [],
     currentTopic: "",
     searchTopics: []
   };
 
   render() {
     const displayTopics =
-      this.state.searchTopics.length === 0
-        ? this.state.topics
+      this.state.topicSearchTerm.length === 0
+        ? this.state.allTopics
         : this.state.searchTopics;
     return (
       <main>
@@ -25,8 +26,12 @@ class Topics extends Component {
         />
 
         <div className="topics-box">
-          <Search handleSearch={this.handleSearch} />
           <h3>Filter articles by topic</h3>
+          <Search
+            handleSearch={this.handleTopicSearch}
+            placeholder="search topics..."
+          />
+
           <button onClick={this.setTopic} id="">
             Reset Filters
           </button>
@@ -53,7 +58,7 @@ class Topics extends Component {
     fetchTopics()
       .then(topics =>
         this.setState(() => {
-          return { topics: topics.data.topics };
+          return { allTopics: topics.data.topics };
         })
       )
       .catch(err => {
@@ -73,11 +78,15 @@ class Topics extends Component {
     this.setState({ currentTopic: topic });
   };
 
-  handleSearch = event => {
-    const foundTopics = this.state.topics.filter(topic => {
-      return topic.slug.includes(event.target.value);
+  handleTopicSearch = event => {
+    const topicSearchTerm = event.target.value;
+    const foundTopics = this.state.allTopics.filter(topic => {
+      return topic.slug.includes(topicSearchTerm);
     });
-    this.setState({ searchTopics: foundTopics });
+    this.setState({
+      searchTopics: foundTopics,
+      topicSearchTerm: topicSearchTerm
+    });
   };
 }
 

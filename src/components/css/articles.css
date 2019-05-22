@@ -11,7 +11,7 @@
 }
 
 .articles-box h2 {
-  margin-bottom: 0;
+  margin-bottom: 5px;
 }
 
 a {
@@ -58,6 +58,7 @@ a {
   outline: none;
   font-size: 16px;
   margin-left: 5px;
+  height: 36px;
 }
 
 .sort-menu select option {
